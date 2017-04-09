@@ -1,0 +1,39 @@
+<ion-view view-title="Register Form">
+  <ion-content>
+    <form ng-submit="signup()" id="regForm1" name="regForm" novalidate>
+      <div class="list padding">
+        <label for="email" class="item item-input item-floating-label"><span class="input-label">Email</span>
+                <input type="email" placeholder="Email" id="email" name="email" ng-model="user.email" required>
+                    <span class="ion-information-circled" ng-show="regForm.email.$error.required && regForm.email.$dirty" ng-style="{color:'red'}">Email is Required</span>
+                    <span class="ion-information-circled" ng-show="!regForm.email.$error.required && regForm.email.$error.email && regForm.email.$dirty" ng-style="{color:'red'}">Email is invalid</span>
+            </label>
+        <label for="password" class="item item-input item-floating-label"><span class="input-label">Password</span>
+                <input type="password" id="password" name="password" placeholder="Password" ng-model="user.password" ng-minlength="8" ng-maxlength="20" ng-pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/" required>
+                <span class="ion-information-circled" ng-show="regForm.password.$error.required && regForm.password.$dirty" ng-style="{color:'red'}">Password is required</span>
+                <span class="ion-information-circled" ng-show="!regForm.password.$error.required && (regForm.password.$error.minlength || regForm.password.$error.maxlength) && regForm.password.$dirty" ng-style="{color:'red'}">Passwords must be between 8 and 20 characters.</span>
+                <span class="ion-information-circled" ng-show="!regForm.password.$error.required && !regForm.password.$error.minlength && !regForm.password.$error.maxlength && regForm.password.$error.pattern && regForm.password.$dirty" ng-style="{color:'red'}">Must contain one lower &amp; uppercase letter, and one non-alpha character (a number or a symbol.)</span>
+            </label>
+        <label for="password_c" class="item item-input item-floating-label"><span class="input-label">Confirm Password</span>
+                <input type="password" placeholder="Confirm Password" id="password_c" name="password_c" ng-model="user.password_c"  valid-password-c required>
+                   <span class="ion-information-circled" ng-style="{color:'red'}" ng-show="regForm.password_c.$error.required && regForm.password_c.$dirty">Please confirm your password.</span>
+                    <span class="ion-information-circled" ng-style="{color:'red'}" ng-show="!regForm.password_c.$error.required && regForm.password_c.$error.noMatch && regForm.password.$dirty">Passwords do not match.</span>
+            </label>
+        <label class="item">
+                <button class="button button-block button-balanced" type="submit" ng-disabled="!regForm.$valid">
+                <i class="icon ion-ios-personadd-outline"></i>&nbsp;Register
+            </button>
+            </label>
+        <label class="item">
+                            <button class="button button-block button-assertive" ng-click="goBackToLogin()" type="button">
+                <i class="icon icon-left ion-chevron-left"></i>&nbsp;Back To Login
+            </button>
+            </label>
+        <label class="item">
+                            <button class="button button-block button-assertive" ng-click="toSigSample()" type="button">
+                to sig sample
+            </button>
+            </label>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>
