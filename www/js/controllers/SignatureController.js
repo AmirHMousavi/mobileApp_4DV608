@@ -62,12 +62,5 @@ angular.module('starter.controllers')
 
     }
 
-    $scope.sendSignature = function () {
-      if (signaturePad.isEmpty()) {
-        $scope.signatureText = "Please Provide Signature";
-      } else {
-        let signature = signaturePad.toData();
-        SignatureService.uploadSignature(signature).then(function (msg) {}, function (errMsg) {});
-      }
-    }
+
   });
