@@ -24,6 +24,7 @@ angular.module('starter.controllers')
           template: errMsg
         });
         $scope.user = {};
+        $scope.$$childTail.theloginForm.$setPristine();
       });
     };
     $scope.isLoggedIn = function () {

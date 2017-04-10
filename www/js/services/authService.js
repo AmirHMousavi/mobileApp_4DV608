@@ -34,11 +34,7 @@ angular.module('starter.services')
     var register = function (user) {
       console.log('register:', API_ENDPOINT.register, user);
       var q = $q.defer()
-      $http.post(API_ENDPOINT.register, user, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        }
-      }).then(function (result) {
+      $http.post(API_ENDPOINT.register, user).then(function (result) {
         console.log('result', result);
         if (result.data) {
           $storage.setItem('authToken', result.data.token);
@@ -57,11 +53,7 @@ angular.module('starter.services')
 
     var login = function (user) {
       var q = $q.defer();
-      $http.post(API_ENDPOINT.login, user, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        }
-      }).then(function (result) {
+      $http.post(API_ENDPOINT.login, user).then(function (result) {
         if (result.status === 200) {
           $storage.setItem('authToken', result.data.token);
           $storage.setItem('user-uuid', result.data.uuid);
@@ -91,6 +83,12 @@ angular.module('starter.services')
       isAuthenticated: function () {
         return isAuthenticated;
       },
+      getAuthToken: function (){
+        return authToken;
+      },
+      getUUID: function (){
+        return UUID;
+      }
     };
   });
 

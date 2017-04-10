@@ -92,5 +92,6 @@ angular
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/tab/docs');
+    $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 
   });

@@ -3,4 +3,7 @@ angular.module('starter.controllers')
   $ionicTabsDelegate.showBar(false);
   console.log($stateParams.docId);
   $scope.chat = Chats.get($stateParams.docId);
+
+
+  
 })

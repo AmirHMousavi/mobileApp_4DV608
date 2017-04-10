@@ -1,11 +1,12 @@
 angular.module('starter.controllers')
-  .controller('SignatureCtrl', function ($scope, $state,$ionicPopup,SignatureService) {
-
+  .controller('SignatureCtrl', function ($scope, $state, $ionicPopup, SignatureService, AuthService, $ionicTabsDelegate) {
+    $ionicTabsDelegate.showBar(false);
     var canvas = document.getElementById('sigCanvas')
     $scope.dev_width = canvas.offsetWidth;
     $scope.dev_height = canvas.offsetHeight;
     var signaturePad = new SignaturePad(canvas);
     var signatures = [];
+    var uuid = null;
     $scope.pag_i = 0;
     $scope.pag_t = 5;
     $scope.disableSave = true;
@@ -18,9 +19,13 @@ angular.module('starter.controllers')
       signaturePad.clear();
     }
     $scope.sendSamples = function () {
+      if (AuthService.isAuthenticated()) {
+        uuid = AuthService.getUUID();
+      }
       if (signaturePad.isEmpty()) {
         $scope.warningText = "Please Provide Signature";
       } else {
+        $scope.warningText = undefined;
         let signature = signaturePad.toData();
         signaturePad.clear();
         signatures.push(signature);
@@ -29,7 +34,13 @@ angular.module('starter.controllers')
           $scope.saveButton = 'FINISH'
         }
         if (signatures.length >= 5) {
-          SignatureService.uploadSignatureSamples(signatures).then(function (msg) {
+          var outputObj = {
+            'user': {
+              'signatures': signatures
+            }
+          };
+          var signaturesObj = JSON.stringify(outputObj);
+          SignatureService.uploadSignatureSamples(signaturesObj, uuid).then(function (msg) {
             $ionicPopup.alert({
               title: 'Congratulations!',
               template: 'Yours Signatures are sampled'
@@ -39,7 +50,7 @@ angular.module('starter.controllers')
           }, function (errMsg) {
             $ionicPopup.alert({
               title: 'Failure!',
-              template: 'errMsg'
+              template: errMsg
             })
             $scope.pag_i = 0;
             $scope.pag_t = 5;

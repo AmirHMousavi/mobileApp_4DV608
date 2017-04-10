@@ -10,5 +10,19 @@
     <p>
       {{chat.lastText}}
     </p>
+    <div>
+      <div>
+        <canvas class="canvas" id="sigCanvas" name="sigCanvas"></canvas>
+      </div>
+      <div ng-show="warningText != undefined">
+        <h4 class="ion-information-circled" ng-style="{color:'red'}">{{warningText}}</h4>
+      </div>
+      <br>
+
+      <div class="button-bar">
+        <a class="button button-energized" ng-click="clearCanvas()">CLEAR</a>
+        <a class="button button-balanced" ng-click="sendSamples()">SIGN</a>
+      </div>
+    </div>
   </ion-content>
 </ion-view>
