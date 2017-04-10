@@ -22,7 +22,6 @@
         var user = JSON.stringify(outputObj);
 
         AuthService.register(user).then(function (msg) {
-
           $ionicPopup.alert({
             title: 'Register success!',
             template: "New Users Should Provide Signature Samples",

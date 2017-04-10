@@ -42,3 +42,8 @@
 .no-errors {
   border-bottom: 3px solid green;
 }
+.canvas{
+          display: block;
+    margin: 0 auto;
+    border: 1px solid black;
+}

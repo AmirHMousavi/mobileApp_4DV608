@@ -2,7 +2,6 @@
 
 angular.module('starter.services')
   .service('AuthService', function ($q, $http, API_ENDPOINT, $storage) {
-    var LOCAL_TOKEN_KEY = 'yourTokenKey';
     var isAuthenticated = false;
     var authToken;
     var UUID;
@@ -19,7 +18,6 @@ angular.module('starter.services')
       isAuthenticated = true;
       authToken = token;
       UUID = uuid
-
       // Set the token as header for your requests!
       $http.defaults.headers.common.Authorization = authToken;
     }
