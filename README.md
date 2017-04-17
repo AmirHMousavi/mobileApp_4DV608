@@ -10,17 +10,19 @@ Advanced Software Design Project
 ### prepare to run the app
 ```sh
 # clone the project from repository
-git clone https://github.com/llopv/4DV608-mobile.git
+git clone https://github.com/AmirHMousavi/mobileApp_4DV608.git
+
+# go to project folder
+cd mobileApp_4DV608
 
 # install the dependencies
 npm install
-bower install
 
 # serve the app on browser
 ionic serve
 ```
 
-For serving on emulator or real device
+For serving on emulator (the app is not signed yet to run on real device)
 ```sh
 ioinic prepare android (or ios)
 ionic run android (or ios)
