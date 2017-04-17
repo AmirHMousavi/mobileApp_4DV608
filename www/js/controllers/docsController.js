@@ -10,7 +10,8 @@ angular.module('starter.controllers')
 
     $scope.getAllDocs = function () {
       RequestService.getAllDocuments().then(function (response) {
-        $scope.allDocuments = response.requests;
+        if(!angular.equals($scope.allDocuments,response.requests)){
+        $scope.allDocuments = response.requests;}
       }, function (response) {
         $ionicPopup.alert({
           title: 'Erro',
@@ -30,6 +31,7 @@ angular.module('starter.controllers')
     // Kick off the interval
     $scope.$on('$ionicView.enter', function () {
       console.log('entered the docs view')
+      $scope.getAllDocs();
       $scope.intervalFunction();
     })
 
