@@ -4,15 +4,14 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
-<ion-view view-title="{{chat.name}}">
+<ion-view view-title="{{docId}}">
   <ion-content class="padding">
-    <img ng-src="{{chat.face}}" style="width: 64px; height: 64px">
     <p>
-      {{chat.lastText}}
+      Sign The Document With ID : {{docId}}
     </p>
     <div>
       <div>
-        <canvas class="canvas" id="sigCanvas" name="sigCanvas"></canvas>
+        <canvas class="canvas" id="sigCanvas2" name="sigCanvas2"></canvas>
       </div>
       <div ng-show="warningText != undefined">
         <h4 class="ion-information-circled" ng-style="{color:'red'}">{{warningText}}</h4>
@@ -21,7 +20,7 @@
 
       <div class="button-bar">
         <a class="button button-energized" ng-click="clearCanvas()">CLEAR</a>
-        <a class="button button-balanced" ng-click="sendSamples()">SIGN</a>
+        <a class="button button-balanced" ng-click="sendSignature()">SIGN</a>
       </div>
     </div>
   </ion-content>

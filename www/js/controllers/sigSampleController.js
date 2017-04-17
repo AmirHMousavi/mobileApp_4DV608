@@ -1,20 +1,22 @@
 angular.module('starter.controllers')
-  .controller('SignatureCtrl', function ($scope, $state, $ionicPopup, SignatureService, AuthService, $ionicTabsDelegate) {
+/**
+ * Signature Sampling Controller, this controller is responsible for taking FIVE signature samples from user, after registration
+ */
+  .controller('SigSampleCtrl', function ($scope, $state, $ionicPopup, SignatureService, AuthService, $ionicTabsDelegate) {
     $ionicTabsDelegate.showBar(false);
+    /**Canvas instantiation  */
     var canvas = document.getElementById('sigCanvas')
     $scope.dev_width = canvas.offsetWidth;
     $scope.dev_height = canvas.offsetHeight;
     var signaturePad = new SignaturePad(canvas);
+    
     var signatures = [];
     var uuid = null;
     $scope.pag_i = 0;
     $scope.pag_t = 5;
-    $scope.disableSave = true;
     $scope.saveButton = 'NEXT';
     $scope.warningText = undefined;
-    /*    if ($state.current.name == 'tab.sample') {
-          $scope.pag_t = 5;
-        } */
+
     $scope.clearCanvas = function () {
       signaturePad.clear();
     }
@@ -34,23 +36,24 @@ angular.module('starter.controllers')
           $scope.saveButton = 'FINISH'
         }
         if (signatures.length >= 5) {
+          /**the signatures array JSON object format that API accepts */
           var outputObj = {
             'user': {
               'signatures': signatures
             }
           };
           var signaturesObj = JSON.stringify(outputObj);
-          SignatureService.uploadSignatureSamples(signaturesObj, uuid).then(function (msg) {
+          SignatureService.uploadSignatureSamples(signaturesObj, uuid).then(function (response) {
             $ionicPopup.alert({
               title: 'Congratulations!',
-              template: 'Yours Signatures are sampled'
+              template: 'Yours Signatures are sampled' + response
             }).then(function () {
               $state.go('tab.docs');
             });
-          }, function (errMsg) {
+          }, function (errResponse) {
             $ionicPopup.alert({
               title: 'Failure!',
-              template: errMsg
+              template: errResponse
             })
             $scope.pag_i = 0;
             $scope.pag_t = 5;
@@ -61,6 +64,4 @@ angular.module('starter.controllers')
       }
 
     }
-
-
   });

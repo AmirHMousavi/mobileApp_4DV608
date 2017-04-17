@@ -4,8 +4,8 @@
 // an array of 'requires' 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 angular
-  .module('starter', ['ionic','ngCordova', 'starter.controllers', 'starter.services', 'starter.constants'])
-  .run(function ($ionicPlatform) {
+  .module('starter', ['ionic', 'starter.controllers', 'starter.services', 'starter.constants'])
+  .run(function ($ionicPlatform, $rootScope, $ionicLoading) {
     $ionicPlatform
       .ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar
@@ -25,7 +25,28 @@ angular
           StatusBar.styleDefault();
         }
       });
+
+    $rootScope.$on('loading:show', function () {
+      $ionicLoading.show({
+        template: '<ion-spinner icon="android"></ion-spinner> Loading ...'
+      })
+    });
+
+    $rootScope.$on('loading:hide', function () {
+      $ionicLoading.hide();
+    });
+
+    $rootScope.$on('$stateChangeStart', function () {
+      console.log('Loading ...');
+      $rootScope.$broadcast('loading:show');
+    });
+
+    $rootScope.$on('$stateChangeSuccess', function () {
+      console.log('Loading done');
+      $rootScope.$broadcast('loading:hide');
+    }); 
   })
+
   .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
 
     // Ionic uses AngularUI Router which uses the concept of states Learn more here:
@@ -51,12 +72,12 @@ angular
           }
         }
       })
-      .state('tab.doc-detail', {
+      .state('tab.doc-toBeSigned', {
         url: '/docs/:docId',
         views: {
           'tab-docs': {
-            templateUrl: 'templates/doc-detail.html',
-            controller: 'DocDetailCtrl'
+            templateUrl: 'templates/doc-toBeSigned.html',
+            controller: 'SignDocumentCtrl',
           }
         }
       })
@@ -83,7 +104,7 @@ angular
         views: {
           'tab-sig-sample': {
             templateUrl: 'templates/tab-sigSample.html',
-            controller: 'SignatureCtrl'
+            controller: 'SigSampleCtrl'
           }
         }
       })
@@ -91,7 +112,8 @@ angular
     //   $httpProvider.interceptors.push('AuthTokenInterceptor');
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/tab/docs');
+    $urlRouterProvider.otherwise('/tab/login');
+    // append Content Type to every Http POST requests
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 
   });

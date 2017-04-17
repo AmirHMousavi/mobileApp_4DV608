@@ -1,20 +1,42 @@
 angular.module('starter.controllers')
-  .controller('DocsCtrl', function ($scope, $rootScope, $state, Chats, $ionicTabsDelegate, AuthService, $storage,$window) {
-    // With the new view caching in Ionic, Controllers are only called
-    // when they are recreated or on app start, instead of every page change.
-    // To listen for when this page is active (for example, to refresh data),
-    // listen for the $ionicView.enter event:
-    //
-    //$scope.$on('$ionicView.enter', function(e) {
-    //});
-    // Show the login page if the auth-login-required function is fired
-    $ionicTabsDelegate.showBar(false);
-    console.log('DocsCtrl- Auth? ', AuthService.isAuthenticated());
-    console.log('Orientation is ' + screen.orientation.type);
+  /**
+   * Documents Controller, this controller fetchs all documents ready to be signed from server
+   */
+  .controller('DocsCtrl', function ($scope, RequestService, $timeout, $ionicTabsDelegate, $ionicPopup) {
 
-    $scope.chats = Chats.all();
-    $scope.remove = function (chat) {
-      Chats.remove(chat);
+    $ionicTabsDelegate.showBar(false);
+    $scope.allDocuments = {}
+    var timer;
+
+    $scope.getAllDocs = function () {
+      RequestService.getAllDocuments().then(function (response) {
+        $scope.allDocuments = response.requests;
+      }, function (response) {
+        $ionicPopup.alert({
+          title: 'Erro',
+          template: response
+        })
+      });
     };
+
+    // Function to replicate setInterval using $timeout service.
+    $scope.intervalFunction = function () {
+      timer = $timeout(function () {
+        $scope.getAllDocs();
+        $scope.intervalFunction();
+      }, 3000)
+    };
+
+    // Kick off the interval
+    $scope.$on('$ionicView.enter', function () {
+      console.log('entered the docs view')
+      $scope.intervalFunction();
+    })
+
+    $scope.$on('$ionicView.beforeLeave', function () {
+      console.log('left the Docs view')
+      // Make sure that the interval is destroyed too
+      $timeout.cancel(timer)
+    });
 
   })
