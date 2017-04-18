@@ -23,9 +23,9 @@ angular.module('starter.services')
     }
 
     function loadUserCredentials() {
-      isAuthenticated = true;
       authToken = $storage.getItem('authToken');
       UUID = $storage.getItem('user-uuid');
+      if(authToken){isAuthenticated = true;}
       $http.defaults.headers.common.token = authToken;
       console.log('loadUserCredentials',authToken,UUID);
     }
