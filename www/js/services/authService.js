@@ -30,14 +30,6 @@ angular.module('starter.services')
       console.log('loadUserCredentials',authToken,UUID);
     }
 
-    /*    function useCredentials(token, uuid) {
-          isAuthenticated = true;
-          authToken = token;
-          UUID = uuid
-          // Set the token as header for your requests!
-          $http.defaults.headers.common.token = authToken;
-        }*/
-
     /**
      * destroyUserCredentials: clears all related credentials from storage and http header. 
      */
@@ -60,8 +52,6 @@ angular.module('starter.services')
       var q = $q.defer()
       $http.post(API_ENDPOINT.register, user).then(function (response) {
         console.log('register success', response)
-        //         $storage.setItem('authToken', response.data.token);
-        //         $storage.setItem('user-uuid', response.data.uuid);
         saveUserCredentials(response.data.token, response.data.uuid);
         q.resolve(response.data);
       }, function (errResponse) {
@@ -81,8 +71,6 @@ angular.module('starter.services')
       var q = $q.defer();
       $http.post(API_ENDPOINT.login, user).then(function (response) {
         console.log('login success', response)
-        //         $storage.setItem('authToken', response.data.token);
-        //         $storage.setItem('user-uuid', response.data.uuid);
         saveUserCredentials(response.data.token, response.data.uuid);
         q.resolve(response.data);
       }, function (errResponse) {

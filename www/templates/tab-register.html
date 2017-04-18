@@ -8,7 +8,7 @@
                     <span class="ion-information-circled" ng-show="!regForm.email.$error.required && regForm.email.$error.email && regForm.email.$dirty" ng-style="{color:'red'}">Email is invalid</span>
             </label>
         <label for="password" class="item item-input item-floating-label"><span class="input-label">Password</span>
-                <input type="password" id="password" name="password" placeholder="Password" ng-model="user.password" ng-minlength="8" ng-maxlength="20" ng-pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/" required>
+                <input type="password" id="password" name="password" placeholder="Password" ng-model="user.password" ng-minlength="4" ng-maxlength="20"  required>
                 <span class="ion-information-circled" ng-show="regForm.password.$error.required && regForm.password.$dirty" ng-style="{color:'red'}">Password is required</span>
                 <span class="ion-information-circled" ng-show="!regForm.password.$error.required && (regForm.password.$error.minlength || regForm.password.$error.maxlength) && regForm.password.$dirty" ng-style="{color:'red'}">Passwords must be between 8 and 20 characters.</span>
                 <span class="ion-information-circled" ng-show="!regForm.password.$error.required && !regForm.password.$error.minlength && !regForm.password.$error.maxlength && regForm.password.$error.pattern && regForm.password.$dirty" ng-style="{color:'red'}">Must contain one lower &amp; uppercase letter, and one non-alpha character (a number or a symbol.)</span>

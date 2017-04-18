@@ -7,10 +7,10 @@ angular.module('starter.services', [])
     getAllDocuments: function(){
       var q = $q.defer();
       $http.get(API_ENDPOINT.checkForRequests).then(function(response){
-        console.log('get doc succress',response);
+       console.log('get doc succress',response);
         q.resolve(response.data);
       },function(errResponse){
-        console.log('get docs fail',errResponse);
+       console.log('get docs fail',errResponse);
         q.reject(errResponse.data);
       });
       return q.promise;

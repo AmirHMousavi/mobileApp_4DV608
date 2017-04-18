@@ -108,11 +108,10 @@ angular
           }
         }
       })
-    // Use the auth token interceptor to append the auth_token to every request
-    //   $httpProvider.interceptors.push('AuthTokenInterceptor');
+
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/tab/login');
+    $urlRouterProvider.otherwise('/tab/docs');
     // append Content Type to every Http POST requests
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 

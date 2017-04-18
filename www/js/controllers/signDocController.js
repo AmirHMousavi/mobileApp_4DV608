@@ -26,6 +26,7 @@ angular.module('starter.controllers')
       } else {
         $scope.warningText = undefined;
         let sig = signaturePad.toData();
+        console.log('the signature',sig)
         var outObj = {
           "signature": sig
         };
