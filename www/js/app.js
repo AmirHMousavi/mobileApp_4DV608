@@ -24,6 +24,9 @@ angular
           // org.apache.cordova.statusbar required
           StatusBar.styleDefault();
         }
+        if (window.screen.orientation) {
+          window.screen.orientation.lock('portrait');
+        }
       });
 
     $rootScope.$on('loading:show', function () {
