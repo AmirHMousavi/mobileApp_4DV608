@@ -7,7 +7,10 @@ angular.module('starter.services')
     var UUID;
 
     /**
-     * loadUserCredentials: stores authToken & uuid at localStorage and sets Http requests header for Auth.
+     * @memberof AuthService
+     * @ngdoc services
+     * @name saveUserCredentials
+     * @description store authToken & uuid at localStorage.
      * @param {String} token 
      * @param {String} uuid 
      */
@@ -21,7 +24,12 @@ angular.module('starter.services')
         console.log('saveUserCredentials ERROR!')
       }
     }
-
+    /**
+     * @memberof AuthService
+     * @ngdoc services
+     * @name loadUserCredentials
+     * @description load authToken & uuid from localStorage to local variables and sets Http requests header for Authentication.
+     */
     function loadUserCredentials() {
       authToken = $storage.getItem('authToken');
       UUID = $storage.getItem('user-uuid');
@@ -31,7 +39,10 @@ angular.module('starter.services')
     }
 
     /**
-     * destroyUserCredentials: clears all related credentials from storage and http header. 
+     * @memberof AuthService
+     * @ngdoc services
+     * @name destroyUserCredentials
+     * @description clears all authentication related credentials from storage and http header. 
      */
     function destroyUserCredentials() {
       authToken = undefined;
