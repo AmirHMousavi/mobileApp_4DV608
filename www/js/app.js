@@ -47,7 +47,7 @@ angular
     $rootScope.$on('$stateChangeSuccess', function () {
       console.log('Loading done');
       $rootScope.$broadcast('loading:hide');
-    }); 
+    });
   })
 
   .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {

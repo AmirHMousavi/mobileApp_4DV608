@@ -2,7 +2,7 @@ angular.module('starter.controllers')
   /**
    * Sign Document Controller, this controller is responsibl for signing the documents
    */
-  .controller('SignDocumentCtrl', function ($scope, $stateParams, $state, $ionicTabsDelegate, SignatureService, $ionicPopup) {
+  .controller('SignDocumentCtrl', function ($scope, $stateParams, $state, $ionicTabsDelegate, RequestService, $ionicPopup) {
     $ionicTabsDelegate.showBar(false);
     $scope.docId = $stateParams.docId;
 
@@ -18,7 +18,7 @@ angular.module('starter.controllers')
     }
 
     /**
-     * calling Signature Service to send signature array of vectors to API 
+     * calling Signature Service to send signature array of vectors to API
      */
     $scope.sendSignature = function () {
       if (signaturePad.isEmpty()) {
@@ -31,7 +31,7 @@ angular.module('starter.controllers')
           "signature": sig
         };
         var signature = JSON.stringify(outObj);
-        SignatureService.uploadSignature(signature, $scope.docId).then(function (msg) {
+        RequestService.signDocument($scope.docId, signature).then(function (msg) {
           $ionicPopup.alert({
             title: 'Signature Sucess!',
             template: 'you signed the document with ID ' + $scope.docId

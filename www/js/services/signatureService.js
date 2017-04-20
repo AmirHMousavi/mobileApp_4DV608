@@ -3,8 +3,8 @@ angular.module('starter.services')
 
     /**
      * uploadSignatureSamples : Gets signature samples array from controller and POST to API with users uuid as URL parameter
-     * @param {JSON} samples 
-     * @param {String} uuid 
+     * @param {JSON} samples
+     * @param {String} uuid
      */
     var uploadSignatureSamples = function (samples, uuid) {
       console.log('sig samples raw:', samples, 'UUID:', uuid);
@@ -20,26 +20,8 @@ angular.module('starter.services')
     }
 
     /**
-     * uploadSignature : gets signature JSON object from controller and POST to API with document ID as URL parameter
-     * @param {JSON} signature 
-     * @param {String} id 
-     */
-    var uploadSignature = function (signature, id) {
-      console.log('upload 1 sig raw:', signature, 'docID:', id);
-      var q = $q.defer();
-      $http.post(API_ENDPOINT.signRequest + id, signature).then(function (response) {
-        console.log('upload 1 sig success',response)
-        q.resolve(response.data)
-      }, function (errResponse) {
-        console.log('upload 1 sig fail',errResponse)
-        q.reject(errResponse.data)
-      });
-      return q.promise;
-    }
-
-    /**
      * checkSigSampleProvided : checks if a registerd user has already provided signature samples or not
-     * @param {String} uuid 
+     * @param {String} uuid
      */
     var checkSigSampleProvided = function (uuid) {
       console.log('check if sig sample providdeed')
@@ -55,9 +37,8 @@ angular.module('starter.services')
     }
 
     return {
-      uploadSignatureSamples: uploadSignatureSamples,
-      uploadSignature: uploadSignature,
-      checkSigSampleProvided: checkSigSampleProvided
+      uploadSignatureSamples,
+      checkSigSampleProvided
     }
 
   });
