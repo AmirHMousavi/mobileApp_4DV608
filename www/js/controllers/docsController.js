@@ -2,7 +2,12 @@ angular.module('starter.controllers')
   /**
    * Documents Controller, this controller fetchs all documents ready to be signed from server
    */
-  .controller('DocsCtrl', function ($scope, RequestService, $timeout, $ionicTabsDelegate, $ionicPopup) {
+  .controller('DocsCtrl', function ($scope, RequestService, $timeout,$stat, AuthService, $ionicTabsDelegate, $ionicPopup) {
+
+    AuthService.loadUserCredentials();
+    if (!AuthService.isAuthenticated()) {
+      $state.go('tab.login');
+    }
 
     $ionicTabsDelegate.showBar(false);
     $scope.allDocuments = {}
@@ -10,8 +15,9 @@ angular.module('starter.controllers')
 
     $scope.getAllDocs = function () {
       RequestService.getAllDocuments().then(function (response) {
-        if(!angular.equals($scope.allDocuments,response.requests)){
-        $scope.allDocuments = response.requests;}
+        if (!angular.equals($scope.allDocuments, response.requests)) {
+          $scope.allDocuments = response.requests;
+        }
       }, function (response) {
         $ionicPopup.alert({
           title: 'Erro',
