@@ -2,7 +2,7 @@ angular.module('starter.controllers')
   /**
    * Documents Controller, this controller fetchs all documents ready to be signed from server
    */
-  .controller('DocsCtrl', function ($scope, RequestService, $timeout,$stat, AuthService, $ionicTabsDelegate, $ionicPopup) {
+  .controller('DocsCtrl', function ($scope, RequestService, $timeout, $state, AuthService, $ionicTabsDelegate, $ionicPopup) {
 
     AuthService.loadUserCredentials();
     if (!AuthService.isAuthenticated()) {

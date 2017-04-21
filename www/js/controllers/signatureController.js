@@ -1,15 +1,19 @@
 angular.module('starter.controllers')
-/**
- * Signature Sampling Controller, this controller is responsible for taking FIVE signature samples from user, after registration
- */
-  .controller('SigSampleCtrl', function ($scope, $state, $ionicPopup, SignatureService, AuthService, $ionicTabsDelegate) {
+  /**
+   * Sign Document Controller, this controller is responsibl for signing the documents
+   */
+  .controller('SignatureCtrl', function ($scope, $state, $stateParams, $ionicTabsDelegate, RequestService, SignatureService, AuthService, $ionicPopup) {
     $ionicTabsDelegate.showBar(false);
-    /**Canvas instantiation  */
+    if ($stateParams.docId) {
+      $scope.docId = $stateParams.docId;
+    }
+
+    /**instantiate a canvas that will hold the signatures */
     var canvas = document.getElementById('sigCanvas')
     $scope.dev_width = canvas.offsetWidth;
     $scope.dev_height = canvas.offsetHeight;
     var signaturePad = new SignaturePad(canvas);
-    
+
     var signatures = [];
     var uuid = null;
     $scope.pag_i = 0;
@@ -17,9 +21,39 @@ angular.module('starter.controllers')
     $scope.saveButton = 'NEXT';
     $scope.warningText = undefined;
 
+    $scope.warningText = undefined;
     $scope.clearCanvas = function () {
       signaturePad.clear();
     }
+
+    /**
+     * calling Signature Service to send signature array of vectors to API
+     */
+    $scope.sendSignature = function () {
+      if (signaturePad.isEmpty()) {
+        $scope.warningText = "Please Provide Signature";
+      } else {
+        $scope.warningText = undefined;
+        let sig = signaturePad.toData();
+        console.log('the signature',sig)
+        var outObj = {
+          "signature": sig
+        };
+        var signature = JSON.stringify(outObj);
+        RequestService.signDocument($scope.docId, signature).then(function (msg) {
+          $ionicPopup.alert({
+            title: 'Signature Sucess!',
+            template: 'you signed the document with ID ' + $scope.docId
+          }).then($state.go('tab.docs'))
+        }, function (errMsg) {
+          $ionicPopup.alert({
+            title: 'Failure!',
+            template: errMsg.error + ', signature does not match samples'
+          }).then($scope.clearCanvas())
+        });
+      }
+    }
+
     $scope.sendSamples = function () {
       if (AuthService.isAuthenticated()) {
         uuid = AuthService.getUUID();
@@ -64,4 +98,4 @@ angular.module('starter.controllers')
       }
 
     }
-  });
+  })

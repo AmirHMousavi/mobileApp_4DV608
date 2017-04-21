@@ -80,7 +80,7 @@ angular
         views: {
           'tab-docs': {
             templateUrl: 'templates/doc-toBeSigned.html',
-            controller: 'SignDocumentCtrl',
+            controller: 'SignatureCtrl',
           }
         }
       })
@@ -107,7 +107,7 @@ angular
         views: {
           'tab-sig-sample': {
             templateUrl: 'templates/tab-sigSample.html',
-            controller: 'SigSampleCtrl'
+            controller: 'SignatureCtrl'
           }
         }
       })
