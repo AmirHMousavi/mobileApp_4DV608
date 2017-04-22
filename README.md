@@ -7,7 +7,7 @@ Advanced Software Design Project
 * Cordova and Ionic (`sudo npm -g install cordova ionic`)
 
 
-### prepare to run the app
+### Prepare to run the app
 ```sh
 # clone the project from repository
 git clone https://github.com/AmirHMousavi/mobileApp_4DV608.git
@@ -22,15 +22,13 @@ npm install
 ionic serve
 ```
 
-For serving on emulator (the app is not signed yet to run on real device)
-```sh
-ioinic prepare android (or ios)
-ionic run android (or ios)
-```
-
-The android platform is already added, the general approach for adding a 
-platform is:
+For deploying on mobile device (the app is not in Play Store, but we can deploy
+it in debug mode), we need [Android SDK][1] and execute the following commands:
 
 ```sh
-ionic platform add android (or ios)
+ionic platform add android
+ionic build android
+adb -d install platforms/android/build/outputs/apk/android-debug.apk
 ```
+
+[1]: https://developer.android.com/studio/index.html
